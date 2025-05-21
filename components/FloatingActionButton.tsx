@@ -1,13 +1,12 @@
 import { Octicons } from '@expo/vector-icons';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
-export const FloatingActionButton = () => {
-  const handlePress = () => {
-    alert('Floating Button Pressed!');
-  };
-
+type FABProps = {
+  onPress: () => void;
+};
+export const FloatingActionButton = ({ onPress }: FABProps) => {
   return (
-    <TouchableOpacity style={styles.floatingButton} onPress={handlePress}>
+    <TouchableOpacity style={styles.floatingButton} onPress={onPress}>
       <Octicons name="diff-added" size={24} color="white" />
     </TouchableOpacity>
   );
