@@ -7,7 +7,9 @@ import DatabaseProvider from '@/providers/database-provider';
 export default function Layout() {
   return (
     <DatabaseProvider>
-      <Stack />
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
     </DatabaseProvider>
   );
 }
