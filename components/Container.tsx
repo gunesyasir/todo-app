@@ -1,11 +1,23 @@
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import React, { ReactNode, useCallback, useEffect, useRef } from 'react';
+import { SafeAreaView } from 'react-native';
+
 import { BottomSheetComponent } from '@/components/BottomSheetComponent';
 import { FloatingActionButton } from '@/components/FloatingActionButton';
-import React, { ReactNode, useCallback, useRef } from 'react';
-import { BottomSheetModal, BottomSheetTextInput } from '@gorhom/bottom-sheet';
+import { CreateTaskForm } from '@/features/tasks/components/CreateTaskForm';
+import { useCreateTask } from '@/features/tasks/hooks/useCreateTask';
+import { getAllTasks } from '@/queries/tasks';
+import { Task } from '@/types';
 
 export const Container = ({ children }: { children: ReactNode }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const { createTask, isCompleted } = useCreateTask();
+
+  useEffect(() => {
+    if (isCompleted) {
+      bottomSheetModalRef.current?.dismiss();
+    }
+  }, [isCompleted]);
 
   const handlePresentModal = useCallback(() => {
     bottomSheetModalRef.current?.present();
@@ -17,20 +29,7 @@ export const Container = ({ children }: { children: ReactNode }) => {
 
       <BottomSheetComponent
         ref={bottomSheetModalRef}
-        children={
-          <View style={styleSheet.content}>
-            <BottomSheetTextInput
-              placeholder={'e.g. Doctor appointment'}
-              style={styleSheet.input}
-              autoFocus
-            />
-            <BottomSheetTextInput
-              placeholder={'Description'}
-              style={[styleSheet.input, styleSheet.description]}
-            />
-            <BottomSheetTextInput placeholder={'Description'} value="" style={styleSheet.input} />
-          </View>
-        }
+        children={<CreateTaskForm handleCreateTask={createTask} />}
       />
 
       {children}
@@ -41,31 +40,3 @@ export const Container = ({ children }: { children: ReactNode }) => {
 const styles = {
   container: 'flex flex-1',
 };
-
-const styleSheet = StyleSheet.create({
-  backdrop: {
-    backgroundColor: 'rgba(0, 15, 43, 0.5)',
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: 'yellow',
-  },
-  description: {
-    fontSize: 12,
-  },
-  input: {
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    fontSize: 16,
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 8,
-  },
-});

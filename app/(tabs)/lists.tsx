@@ -1,34 +1,15 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
-
 import { Text, Pressable } from 'react-native';
-import { Container } from '@/components/Container';
-import { List } from '@/types';
+
 import CollapsibleList from '@/components/CollapsibleList';
+import { Container } from '@/components/Container';
+import { useBoundStore } from '@/store/useBoundStore';
+import { List } from '@/types';
 
 export default function Lists() {
   const { name } = useLocalSearchParams();
-
+  const listData = useBoundStore((state) => state.lists);
   const listItemHeight = 40;
-  const listData: List[] = [
-    {
-      id: 1,
-      name: 'List 1',
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    },
-    {
-      id: 2,
-      name: 'List 2',
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    },
-    {
-      id: 3,
-      name: 'List 3',
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    },
-  ];
 
   return (
     <>

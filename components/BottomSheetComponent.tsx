@@ -13,7 +13,7 @@ interface BottomSheetProps {
 
 export const BottomSheetComponent = React.forwardRef<BottomSheetModal, BottomSheetProps>(
   ({ children }, ref) => {
-    const snapPoints = [200];
+    const snapPoints = [285];
 
     // NOTE: Dynamic sizing is broken in this version. Manuel snap points computations used to prevent more time loss. ALso BottomSheetView used for this purpose.
     // Look at: https://github.com/gorhom/react-native-bottom-sheet/issues/2035
@@ -36,6 +36,7 @@ export const BottomSheetComponent = React.forwardRef<BottomSheetModal, BottomShe
       <BottomSheetModal
         ref={ref}
         backdropComponent={renderBackdrop}
+        backgroundStyle={styles.background}
         enableDynamicSizing={false}
         snapPoints={snapPoints}>
         <BottomSheetView>{children}</BottomSheetView>
@@ -52,5 +53,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
+  },
+  background: {
+    backgroundColor: '#f5f5f5',
   },
 });
