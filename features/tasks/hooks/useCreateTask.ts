@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { TaskCreateSchema } from '../schema';
 
 import { createTask } from '@/queries/tasks';
-import { AppTask } from '@/store/slices/taskSlice';
+import { SharedTask } from '@/store/slices/taskSlice';
 import { useBoundStore } from '@/store/useBoundStore';
 
 export const useCreateTask = () => {
@@ -12,7 +12,7 @@ export const useCreateTask = () => {
   const [isCompleted, setIsCompleted] = useState(false);
 
   const createTaskFn = async (newTask: TaskCreateSchema) => {
-    const task: AppTask = {
+    const task: SharedTask = {
       ...newTask,
       name: newTask.name,
       description: newTask.description !== undefined ? newTask.description : null,
@@ -38,5 +38,6 @@ export const useCreateTask = () => {
   return {
     createTask: createTaskFn,
     isCompleted,
+    setIsCompleted: () => setIsCompleted(false),
   };
 };

@@ -4,7 +4,7 @@ import { createList, getAllLists } from '@/queries/lists';
 import { getAllTasks } from '@/queries/tasks';
 import { useBoundStore } from '@/store/useBoundStore';
 
-export const useSplashScreen = () => {
+export const useSplashScreen = (): { isLoaded: boolean } => {
   const setLists = useBoundStore((state) => state.setAllLists);
   const setTasks = useBoundStore((state) => state.setAllTasks);
   const [isLoaded, setIsLoaded] = useState(false);

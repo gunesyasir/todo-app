@@ -1,13 +1,11 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack } from 'expo-router';
 import { Text, Pressable } from 'react-native';
 
 import CollapsibleList from '@/components/CollapsibleList';
 import { Container } from '@/components/Container';
 import { useBoundStore } from '@/store/useBoundStore';
-import { List } from '@/types';
 
 export default function Lists() {
-  const { name } = useLocalSearchParams();
   const listData = useBoundStore((state) => state.lists);
   const listItemHeight = 40;
 
@@ -17,7 +15,7 @@ export default function Lists() {
       <Container>
         {/*<ScreenContent path="screens/lists.tsx" title={`Showing details for user ${name}`} />*/}
 
-        <CollapsibleList<List>
+        <CollapsibleList
           title="My Lists"
           data={listData}
           renderItem={({ item }) => (
