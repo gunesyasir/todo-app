@@ -9,14 +9,14 @@ import { useCreateTask } from '@/features/tasks/hooks/useCreateTask';
 
 export const Container = ({ children }: { children: ReactNode }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const { createTask, isCompleted, setIsCompleted } = useCreateTask();
+  const { createTask, isFinished, toggleIsFinished } = useCreateTask();
 
   useEffect(() => {
-    if (isCompleted) {
-      setIsCompleted();
+    if (isFinished) {
+      toggleIsFinished();
       bottomSheetModalRef.current?.dismiss();
     }
-  }, [isCompleted]);
+  }, [isFinished]);
 
   const handlePresentModal = useCallback(() => {
     bottomSheetModalRef.current?.present();

@@ -3,11 +3,13 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Container } from '@/components/Container';
 import { SectionedFlashList } from '@/components/SectionedFlashList';
+import { useUpdateTask } from '@/features/tasks/hooks/useUpdateTask';
 import { useUpcomingTasksScreen } from '@/hooks/useUpcomingTasksScreen';
-import { SharedTask } from '@/store/slices/taskSlice';
+import { SharedTask } from '@/types';
 
 export default function TaskScreen() {
   const { sectionListData } = useUpcomingTasksScreen();
+  const { toggleIsCompleted } = useUpdateTask();
   const ITEM_HEIGHT = 60; // TODO: Calculate on layout
 
   const renderHeaderItem = (header: string) => <Text style={styles.header}>{header}</Text>;
@@ -16,7 +18,7 @@ export default function TaskScreen() {
     <View style={styles.taskItem}>
       <TouchableOpacity
         style={[styles.button, item.is_completed && styles.filledButton]}
-        onPress={() => toggleIsCompleted(item)}
+        onPress={() => toggleIsCompleted(item.id, !item.is_completed ?? true)}
       />
       <View style={{ flex: 1 }}>
         <Text style={[styles.taskTitle, item.is_completed && styles.taskTitleCompleted]}>
@@ -26,8 +28,6 @@ export default function TaskScreen() {
       </View>
     </View>
   );
-
-  const toggleIsCompleted = (item: SharedTask) => {};
 
   return (
     <>

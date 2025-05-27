@@ -2,18 +2,19 @@ import { useState } from 'react';
 
 import { TaskCreateSchema } from '../schema';
 
-import { createTask } from '@/queries/tasks';
-import { SharedTask } from '@/store/slices/taskSlice';
+import { createTask, getRecentTasks } from '@/queries/tasks';
 import { useBoundStore } from '@/store/useBoundStore';
+import { SharedTask } from '@/types';
 
 export const useCreateTask = () => {
   const addTask = useBoundStore((state) => state.addTask);
   const removeTask = useBoundStore((state) => state.removeTask);
-  const [isCompleted, setIsCompleted] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
 
   const createTaskFn = async (newTask: TaskCreateSchema) => {
     const task: SharedTask = {
       ...newTask,
+      id: Date.now(), // Temporary ID until getting id from server side.
       name: newTask.name,
       description: newTask.description !== undefined ? newTask.description : null,
       image: newTask.image !== undefined ? newTask.image : null,
@@ -26,18 +27,22 @@ export const useCreateTask = () => {
     };
     // Optimistically add task to store and set completed as true.
     addTask(task);
-    setIsCompleted(true);
+    setIsFinished(true);
 
     createTask(newTask)
-      .then(() => {})
+      .then(async () => {
+        removeTask(task.id);
+        const item = await getRecentTasks(1);
+        addTask(item[0]);
+      })
       .catch(() => {
-        removeTask(task);
+        removeTask(task.id);
       });
   };
 
   return {
     createTask: createTaskFn,
-    isCompleted,
-    setIsCompleted: () => setIsCompleted(false),
+    isFinished,
+    toggleIsFinished: () => setIsFinished(!isFinished),
   };
 };

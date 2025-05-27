@@ -25,6 +25,29 @@ export const getAllTasks = async () => {
 };
 
 /**
+ * Retrieves the most recently created tasks
+ *
+ * @param limit - The maximum number of lists to retrieve (defaults to 5)
+ *
+ * @remarks
+ * This function sorts the tasks by creation date in descending order (newest first)
+ * and limits the results to the specified number.
+ * Network latency is simulated to emulate real-world API behavior.
+ *
+ * @returns A promise that resolves to an array of the most recent taks objects
+ *
+ * @example
+ * ```typescript
+ * // Get the 3 most recently created tasks
+ * const recentTasks = await getRecentTasks(3);
+ * ```
+ */
+export const getRecentTasks = async (limit = 5) => {
+  await simulateNetworkLatency();
+  return db.select().from(tasks).orderBy(desc(tasks.created_at)).limit(limit).all();
+};
+
+/**
  * Retrieves a specific task by its ID
  *
  * @param id - The unique identifier of the task to retrieve

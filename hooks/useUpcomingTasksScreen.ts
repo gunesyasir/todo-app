@@ -1,5 +1,5 @@
-import { SharedTask } from '@/store/slices/taskSlice';
 import { useBoundStore } from '@/store/useBoundStore';
+import { SharedTask } from '@/types';
 import { getFormattedDayName } from '@/utils/dateUtils';
 
 interface UpcomingTasksScreenProps {
