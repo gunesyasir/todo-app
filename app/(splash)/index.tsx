@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { splashAnimation } from '@/assets/animations';
-import { useSplash } from '@/hooks/useSplash';
+import { useSplashScreen } from '@/hooks/useSplashScreen';
 
 export default function SplashScreen() {
-  const { isLoaded } = useSplash();
+  const { isLoaded } = useSplashScreen();
 
   useEffect(() => {
     if (!isLoaded) return;

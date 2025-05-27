@@ -6,8 +6,6 @@ import { BottomSheetComponent } from '@/components/BottomSheetComponent';
 import { FloatingActionButton } from '@/components/FloatingActionButton';
 import { CreateTaskForm } from '@/features/tasks/components/CreateTaskForm';
 import { useCreateTask } from '@/features/tasks/hooks/useCreateTask';
-import { getAllTasks } from '@/queries/tasks';
-import { Task } from '@/types';
 
 export const Container = ({ children }: { children: ReactNode }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
