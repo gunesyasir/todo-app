@@ -16,6 +16,8 @@ type CreateTaskProps = {
 };
 
 export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) => {
+  const lists = useBoundStore((state) => state.lists);
+  const defaultList = lists[0];
   const [task, setTask] = useState<TaskCreateSchema>({
     name: '',
     description: '',
@@ -24,7 +26,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
     priority: Priority.Medium,
     is_completed: false,
     due_date: undefined, // TODO: Set real due date
-    list_id: 1,
+    list_id: defaultList.id,
   });
   const [taskError, setTaskError] = useState<Record<keyof TaskCreateSchema, boolean>>({
     name: false,
@@ -36,7 +38,6 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
     due_date: false,
     list_id: false,
   });
-  const lists = useBoundStore((state) => state.lists);
   const listOptions = useMemo(
     () =>
       lists.map((list) => ({
@@ -189,7 +190,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
       <View style={styles.bottomContainer}>
         <MemoizedSelectionButton
           iconPath="folder-open"
-          text={lists[0]?.name}
+          text={defaultList?.name}
           onPress={handleListButtonPress}
           style={styles.selectionButtonExtra}
         />

@@ -7,8 +7,8 @@ import { useBoundStore } from '@/store/useBoundStore';
 import { SharedTask } from '@/types';
 
 export const useCreateTask = () => {
-  const addTask = useBoundStore((state) => state.addTask);
-  const removeTask = useBoundStore((state) => state.removeTask);
+  const addTaskStore = useBoundStore((state) => state.addTask);
+  const removeTaskStore = useBoundStore((state) => state.removeTask);
   const [isFinished, setIsFinished] = useState(false);
 
   const createTaskFn = async (newTask: TaskCreateSchema) => {
@@ -26,17 +26,17 @@ export const useCreateTask = () => {
       updated_at: new Date().toISOString(),
     };
     // Optimistically add task to store and set completed as true.
-    addTask(task);
+    addTaskStore(task);
     setIsFinished(true);
 
     createTask(newTask)
       .then(async () => {
-        removeTask(task.id);
         const item = await getRecentTasks(1);
-        addTask(item[0]);
+        removeTaskStore(task.id);
+        addTaskStore(item[0]);
       })
       .catch(() => {
-        removeTask(task.id);
+        removeTaskStore(task.id);
       });
   };
 
