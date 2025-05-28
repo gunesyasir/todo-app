@@ -1,6 +1,6 @@
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import React from 'react';
-import { TextInput, StyleSheet, TextInputProps } from 'react-native';
+import { TextInput, StyleSheet, TextInputProps, Platform } from 'react-native';
 
 interface AppInputProps extends TextInputProps {
   bottomSheetInput?: boolean;
@@ -16,7 +16,9 @@ export const AppInput: React.FC<AppInputProps> = ({
   style,
   ...rest
 }) => {
-  const AppInput = bottomSheetInput ? BottomSheetTextInput : TextInput;
+  // Workaround for BottomSheetTextInput is problematic in android as it doesn't respect provided snap points.
+  const AppInput =
+    Platform.OS === 'android' || !bottomSheetInput ? TextInput : BottomSheetTextInput;
 
   const handleChange = (text: string) => {
     if (hasError && clearError) {

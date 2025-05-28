@@ -64,8 +64,9 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
+    color: '#333',
   },
   iconButton: {
     padding: 2,
