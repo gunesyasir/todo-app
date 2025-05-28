@@ -11,6 +11,7 @@ import {
 type SelectionItems<T> = {
   label: string;
   value: T;
+  keyExtractor?: string;
 };
 
 type SelectionModalProps<T> = {
@@ -28,13 +29,13 @@ function SelectionModal<T>({ visible, items, onSelect, onClose }: SelectionModal
       <TouchableOpacity onPress={onClose} style={styles.backdrop}>
         <FlatList
           data={items}
-          keyExtractor={(item) => String(item.value)}
           contentContainerStyle={[
             styles.contentContainer,
             { width: width * 0.8, marginTop: height * 0.2 },
           ]}
           renderItem={({ item }) => (
             <TouchableOpacity
+              key={item.keyExtractor ?? String(item.value)}
               style={styles.button}
               onPress={() => onSelect(item)}
               activeOpacity={0.9}>

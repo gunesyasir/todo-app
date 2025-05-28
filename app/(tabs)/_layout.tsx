@@ -8,7 +8,7 @@ export default function TabLayout() {
         name="index"
         options={({ route }) => ({
           tabBarLabel: 'Upcoming',
-          tabBarIcon: ({ color }) => <FontAwesome size={24} name="home" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={24} name="calendar" color={color} />,
         })}
       />
       <Tabs.Screen

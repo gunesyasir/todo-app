@@ -43,6 +43,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
       lists.map((list) => ({
         label: list.name,
         value: list,
+        keyExtractor: list.id.toString(),
       })),
     []
   );

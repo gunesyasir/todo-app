@@ -1,30 +1,42 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import React, { useState } from 'react';
-import { Text, Pressable, StyleSheet } from 'react-native';
+import { Text, Pressable, StyleSheet, View } from 'react-native';
 
 import AppList, { AppListProps } from '@/components/AppList';
 
 type CollapsibleListProps<T> = {
   title: string;
+  onAddPress: () => void;
 } & AppListProps<T>;
 
 export default function CollapsibleList<T>({
   title,
+  onAddPress,
   data,
   renderItem,
   estimatedItemSize,
   keyExtractor,
 }: CollapsibleListProps<T>) {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   return (
     <>
       <Pressable onPress={() => setIsVisible(!isVisible)} style={styles.header}>
         <Text style={styles.title}>{title}</Text>
 
-        <Pressable style={styles.iconButton} onPress={() => setIsVisible(!isVisible)}>
-          <FontAwesome size={18} name={isVisible ? 'chevron-up' : 'chevron-down'} color="#808080" />
-        </Pressable>
+        <View style={styles.iconContainer}>
+          <Pressable style={styles.iconButton} onPress={onAddPress}>
+            <FontAwesome size={18} name="plus" color="#808080" />
+          </Pressable>
+
+          <Pressable style={styles.iconButton} onPress={() => setIsVisible(!isVisible)}>
+            <FontAwesome
+              size={18}
+              name={isVisible ? 'chevron-up' : 'chevron-down'}
+              color="#808080"
+            />
+          </Pressable>
+        </View>
       </Pressable>
       {isVisible && (
         <AppList
@@ -57,5 +69,9 @@ const styles = StyleSheet.create({
   },
   iconButton: {
     padding: 2,
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    gap: 24,
   },
 });

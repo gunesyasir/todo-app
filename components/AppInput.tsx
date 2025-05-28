@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   input: {
     paddingVertical: 4,
     fontSize: 16,
+    padding: 8,
   },
   errorInput: {
     color: 'red',

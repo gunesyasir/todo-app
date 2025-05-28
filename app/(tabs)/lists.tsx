@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { Text, Pressable } from 'react-native';
 
 import CollapsibleList from '@/components/CollapsibleList';
@@ -13,10 +13,9 @@ export default function Lists() {
     <>
       <Stack.Screen options={{ title: 'Lists' }} />
       <Container>
-        {/*<ScreenContent path="screens/lists.tsx" title={`Showing details for user ${name}`} />*/}
-
         <CollapsibleList
           title="My Lists"
+          onAddPress={() => router.navigate('/create-list')}
           data={listData}
           renderItem={({ item }) => (
             <Pressable
