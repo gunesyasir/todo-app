@@ -13,7 +13,8 @@ interface BottomSheetProps {
 
 export const BottomSheetComponent = React.forwardRef<BottomSheetModal, BottomSheetProps>(
   ({ children }, ref) => {
-    const snapPoints = [285];
+    const childrenHeight = 285;
+    const snapPoints = [childrenHeight];
 
     // NOTE: Dynamic sizing is broken in this version. Manuel snap points computations used to prevent more time loss. ALso BottomSheetView used for this purpose.
     // Look at: https://github.com/gorhom/react-native-bottom-sheet/issues/2035

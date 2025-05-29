@@ -17,13 +17,11 @@ export const useSplashScreen = (): { isLoaded: boolean } => {
           await createList('Home');
           lists = await getAllLists();
         }
-        console.log('useSplashScreen lists : ', lists);
         setLists(lists);
       })();
 
       const tasksPromise = (async () => {
         const tasks = await getAllTasks();
-        console.log('useSplashScreen tasks : ', tasks);
         setTasks(tasks);
       })();
 

@@ -33,7 +33,7 @@ export const AppInput: React.FC<AppInputProps> = ({
     <AppInput
       {...rest}
       onChangeText={handleChange}
-      style={[styles.input, hasError && styles.errorInput, style]}
+      style={[styles.input, style, hasError && styles.errorInput]}
       placeholderTextColor={hasError ? 'red' : '#999'}
     />
   );

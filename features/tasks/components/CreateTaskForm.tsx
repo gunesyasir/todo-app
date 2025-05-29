@@ -1,5 +1,5 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { AppInput } from '@/components/AppInput';
@@ -18,7 +18,7 @@ type CreateTaskProps = {
 };
 
 export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) => {
-  const lists = useBoundStore((state) => state.lists);
+  const { lists, showGlobalError } = useBoundStore((state) => state);
   const defaultList = lists[0];
 
   const [task, setTask] = useState<TaskCreateSchema>({
@@ -31,15 +31,15 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
     due_date: new Date().toISOString(),
     list_id: defaultList.id,
   });
-  const [taskError, setTaskError] = useState<Record<keyof TaskCreateSchema, boolean>>({
-    name: false,
-    description: false,
-    image: false,
-    status: false,
-    priority: false,
-    is_completed: false,
-    due_date: false,
-    list_id: false,
+  const [taskError, setTaskError] = useState<Record<keyof TaskCreateSchema, string>>({
+    name: '',
+    description: '',
+    image: '',
+    status: '',
+    priority: '',
+    is_completed: '',
+    due_date: '',
+    list_id: '',
   });
 
   const dateUTC = task.due_date ? new Date(task.due_date) : new Date();
@@ -74,22 +74,39 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
   const [dueDateModalVisible, setDueDateModalVisible] = useState(false);
   const [listsModalVisible, setListsModalVisible] = useState(false);
   const [priorityModalVisible, setPriorityModalVisible] = useState(false);
+  const [savePressed, setSavePressed] = useState(false);
+
+  useEffect(() => {
+    if (!savePressed) return;
+    setSavePressed(false);
+
+    const entries = Object.entries(taskError).filter(([_, value]) => value !== '');
+    if (entries.length === 0) return;
+
+    const firstEntry = entries[0];
+
+    if (firstEntry.length > 0 && firstEntry[1]) {
+      showGlobalError({ message: firstEntry[1] });
+    }
+  }, [taskError, savePressed]);
 
   const onSavePress = useCallback(() => {
+    setSavePressed(true);
+
     const result = taskCreateSchema.safeParse(task);
 
     if (!result.success) {
       const errors = result.error.flatten().fieldErrors;
 
       setTaskError({
-        name: !!errors.name,
-        description: !!errors.description,
-        image: !!errors.image,
-        status: !!errors.status,
-        priority: !!errors.priority,
-        is_completed: !!errors.is_completed,
-        due_date: !!errors.due_date,
-        list_id: !!errors.list_id,
+        name: errors.name?.[0] ?? '',
+        description: errors.description?.[0] ?? '',
+        image: errors.image?.[0] ?? '',
+        status: errors.status?.[0] ?? '',
+        priority: errors.priority?.[0] ?? '',
+        is_completed: errors.is_completed?.[0] ?? '',
+        due_date: errors.due_date?.[0] ?? '',
+        list_id: errors.list_id?.[0] ?? '',
       });
 
       return;
@@ -134,7 +151,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
   }, []);
 
   const handleDueDateButtonPress = useCallback(() => {
-    setTaskError((prev) => ({ ...prev, due_date: false }));
+    setTaskError((prev) => ({ ...prev, due_date: '' }));
     setDueDateModalVisible(true);
   }, []);
 
@@ -152,8 +169,8 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
         <AppInput
           placeholder="Name: e.g. Doctor appointment"
           bottomSheetInput
-          hasError={taskError.name}
-          clearError={() => setTaskError((prev) => ({ ...prev, name: false }))}
+          hasError={!!taskError.name}
+          clearError={() => setTaskError((prev) => ({ ...prev, name: '' }))}
           onChangeText={handleNameChange}
           autoFocus
         />
@@ -161,8 +178,8 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
         <AppInput
           placeholder="Description"
           bottomSheetInput
-          hasError={taskError.description}
-          clearError={() => setTaskError((prev) => ({ ...prev, description: false }))}
+          hasError={!!taskError.description}
+          clearError={() => setTaskError((prev) => ({ ...prev, description: '' }))}
           onChangeText={handleDescriptionChange}
           style={styles.smallerInput}
         />
@@ -170,8 +187,8 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
         <AppInput
           placeholder="Image Path"
           bottomSheetInput
-          hasError={taskError.image}
-          clearError={() => setTaskError((prev) => ({ ...prev, image: false }))}
+          hasError={!!taskError.image}
+          clearError={() => setTaskError((prev) => ({ ...prev, image: '' }))}
           onChangeText={handleImageChange}
           style={styles.smallerInput}
         />
