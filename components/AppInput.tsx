@@ -1,6 +1,7 @@
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { TextInput, StyleSheet, TextInputProps, Platform } from 'react-native';
+
 import { Colors } from '@/utils/colors';
 
 interface AppInputProps extends TextInputProps {
@@ -50,4 +51,3 @@ const styles = StyleSheet.create({
     color: Colors.error,
   },
 });
-

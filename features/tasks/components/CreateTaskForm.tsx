@@ -11,8 +11,8 @@ import { Priority, PriorityLabels, Status } from '@/features/tasks/constants';
 import { TaskCreateSchema, taskCreateSchema } from '@/features/tasks/schema';
 import { useBoundStore } from '@/store/useBoundStore';
 import { List } from '@/types';
-import { convertFormattedDayNameFromDate } from '@/utils/dateUtils';
 import { Colors } from '@/utils/colors';
+import { convertFormattedDayNameFromDate } from '@/utils/dateUtils';
 
 type CreateTaskProps = {
   handleCreateTask: (task: TaskCreateSchema) => void;

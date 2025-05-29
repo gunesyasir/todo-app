@@ -1,9 +1,9 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import React, { useState } from 'react';
-import { Colors } from '@/utils/colors';
 import { Text, Pressable, StyleSheet, View } from 'react-native';
 
 import AppList, { AppListProps } from '@/components/AppList';
+import { Colors } from '@/utils/colors';
 
 type CollapsibleListProps<T> = {
   title: string;

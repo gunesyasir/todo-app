@@ -1,12 +1,12 @@
 import { router, Stack } from 'expo-router';
+import { useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { Colors } from '@/utils/colors';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppInput } from '@/components/AppInput';
 import { Button } from '@/components/Button';
 import { useCreateListScreen } from '@/hooks/useCreateListScreen';
-import { useEffect } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Colors } from '@/utils/colors';
 
 export default function CreateListScreen() {
   const { text, setText, errorMessage, setErrorMessage, onSave, isCompleted } =

@@ -4,9 +4,10 @@ import {
   BottomSheetModal,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
-import { Colors } from '@/utils/colors';
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
+
+import { Colors } from '@/utils/colors';
 
 interface BottomSheetProps {
   children?: React.ReactNode;
