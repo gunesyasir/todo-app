@@ -1,8 +1,3 @@
-export enum DueDate {
-  Today = 'Today',
-  Tomorrow = 'Tomorrow',
-}
-
 export enum Priority {
   Low = 'low',
   Medium = 'medium',

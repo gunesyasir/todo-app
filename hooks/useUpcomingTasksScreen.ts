@@ -11,7 +11,7 @@ export const useUpcomingTasksScreen = (): UpcomingTasksScreenProps => {
 
   const data: Record<string, SharedTask[]> = tasks.reduce(
     (groups, task) => {
-      const dateString = task.created_at.split('T')[0];
+      const dateString = task.due_date!.split('T')[0];
       if (!groups[dateString]) groups[dateString] = [];
       groups[dateString].push(task);
       return groups;

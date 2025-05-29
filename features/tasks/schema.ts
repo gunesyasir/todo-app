@@ -2,6 +2,9 @@ import { z } from 'zod';
 
 import { Priority, Status } from '@/features/tasks/constants';
 
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
 export const taskCreateSchema = z.object({
   name: z.string().min(3, 'Task name must be 3 characters at least.'),
   description: z.string().optional(),
@@ -9,7 +12,11 @@ export const taskCreateSchema = z.object({
   status: z.nativeEnum(Status).default(Status.Pending),
   priority: z.nativeEnum(Priority).default(Priority.Medium),
   is_completed: z.boolean(),
-  due_date: z.string().date().optional(),
+  due_date: z.coerce
+    .date()
+    .min(today, `Due date can't be earlier than today!`)
+    .transform((val) => val.toISOString())
+    .optional(),
   list_id: z.number().int(),
 });
 

@@ -5,11 +5,13 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { AppInput } from '@/components/AppInput';
 import { Divider } from '@/components/Divider';
 import { MemoizedSelectionButton } from '@/components/SelectionButton';
+import { MemoizedDatePickerModal } from '@/features/tasks/components/DatePickerModal';
 import { MemoizedSelectionModal } from '@/features/tasks/components/SelectionModal';
-import { DueDate, Priority, PriorityLabels, Status } from '@/features/tasks/constants';
+import { Priority, PriorityLabels, Status } from '@/features/tasks/constants';
 import { TaskCreateSchema, taskCreateSchema } from '@/features/tasks/schema';
 import { useBoundStore } from '@/store/useBoundStore';
 import { List } from '@/types';
+import { convertFormattedDayNameFromDate } from '@/utils/dateUtils';
 
 type CreateTaskProps = {
   handleCreateTask: (task: TaskCreateSchema) => void;
@@ -18,6 +20,7 @@ type CreateTaskProps = {
 export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) => {
   const lists = useBoundStore((state) => state.lists);
   const defaultList = lists[0];
+
   const [task, setTask] = useState<TaskCreateSchema>({
     name: '',
     description: '',
@@ -25,7 +28,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
     status: Status.Pending,
     priority: Priority.Medium,
     is_completed: false,
-    due_date: undefined, // TODO: Set real due date
+    due_date: new Date().toISOString(),
     list_id: defaultList.id,
   });
   const [taskError, setTaskError] = useState<Record<keyof TaskCreateSchema, boolean>>({
@@ -38,6 +41,17 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
     due_date: false,
     list_id: false,
   });
+
+  const dateUTC = task.due_date ? new Date(task.due_date) : new Date();
+  const localDate = convertFormattedDayNameFromDate(dateUTC);
+  const memoizedDueDate = useMemo(() => {
+    return task.due_date ? new Date(task.due_date) : new Date();
+  }, [task.due_date]);
+
+  const listName = useMemo(() => {
+    return lists.filter((list) => list.id === task.list_id)?.[0]?.name;
+  }, [task.list_id, lists]);
+
   const listOptions = useMemo(
     () =>
       lists.map((list) => ({
@@ -47,14 +61,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
       })),
     []
   );
-  const dueDateOptions = useMemo(
-    () =>
-      Object.values(DueDate).map((value) => ({
-        label: value,
-        value,
-      })),
-    []
-  );
+
   const priorityOptions = useMemo(
     () =>
       Object.values(Priority).map((value) => ({
@@ -103,12 +110,8 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
     setTask((prev) => ({ ...prev, image: text }));
   }, []);
 
-  const handleDueDateSelect = useCallback((item: { label: string; value: DueDate }) => {
-    setTask((prev) => ({ ...prev, due_date: item.value }));
-    setDueDateModalVisible(false);
-  }, []);
-
-  const handleDueDateModalClose = useCallback(() => {
+  const handleDueDateModalClose = useCallback((date?: Date) => {
+    date && setTask((prev) => ({ ...prev, due_date: date.toISOString() }));
     setDueDateModalVisible(false);
   }, []);
 
@@ -127,10 +130,11 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
 
   const handleListSelect = useCallback((item: { label: string; value: List }) => {
     setTask((prev) => ({ ...prev, list_id: item.value.id }));
-    setPriorityModalVisible(false);
+    setListsModalVisible(false);
   }, []);
 
   const handleDueDateButtonPress = useCallback(() => {
+    setTaskError((prev) => ({ ...prev, due_date: false }));
     setDueDateModalVisible(true);
   }, []);
 
@@ -174,9 +178,9 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
 
         <MemoizedSelectionButton
           iconPath="calendar"
-          text={`${task.due_date}`}
+          text={`${localDate}`}
           onPress={handleDueDateButtonPress}
-          color="green"
+          color={taskError.due_date ? 'red' : 'green'}
         />
 
         <MemoizedSelectionButton
@@ -191,7 +195,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
       <View style={styles.bottomContainer}>
         <MemoizedSelectionButton
           iconPath="folder-open"
-          text={defaultList?.name}
+          text={listName}
           onPress={handleListButtonPress}
           style={styles.selectionButtonExtra}
         />
@@ -201,11 +205,10 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
         </TouchableOpacity>
       </View>
 
-      <MemoizedSelectionModal
+      <MemoizedDatePickerModal
         visible={dueDateModalVisible}
-        items={dueDateOptions}
-        onSelect={handleDueDateSelect}
         onClose={handleDueDateModalClose}
+        date={memoizedDueDate}
       />
 
       <MemoizedSelectionModal
