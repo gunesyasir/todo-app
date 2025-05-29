@@ -10,7 +10,7 @@ import { translations } from '@/constants/translations';
 import { useUpdateTask } from '@/features/tasks/hooks/useUpdateTask';
 import { useUpcomingTasksScreen } from '@/hooks/useUpcomingTasksScreen';
 import { useBoundStore } from '@/store/useBoundStore';
-import { SharedTask } from '@/types';
+import { Task } from '@/types';
 import { Colors } from '@/utils/colors';
 
 export default function TaskScreen() {
@@ -21,7 +21,7 @@ export default function TaskScreen() {
 
   const renderHeaderItem = (header: string) => <Text style={styles.header}>{header}</Text>;
 
-  const renderTaskItem = (item: SharedTask) => {
+  const renderTaskItem = (item: Task) => {
     const listName = listData.filter((list) => list.id === item.list_id)?.[0]?.name;
     return (
       <View style={styles.taskItem}>

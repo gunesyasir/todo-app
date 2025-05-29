@@ -1,25 +1,25 @@
 import { useBoundStore } from '@/store/useBoundStore';
-import { SharedTask } from '@/types';
+import { Task } from '@/types';
 import { getFormattedDayName } from '@/utils/dateUtils';
 
 interface UpcomingTasksScreenProps {
-  sectionListData: (string | SharedTask)[];
+  sectionListData: (string | Task)[];
 }
 
 export const useUpcomingTasksScreen = (): UpcomingTasksScreenProps => {
-  const tasks: SharedTask[] = useBoundStore((state) => state.tasks);
+  const tasks: Task[] = useBoundStore((state) => state.tasks);
 
-  const data: Record<string, SharedTask[]> = tasks.reduce(
+  const data: Record<string, Task[]> = tasks.reduce(
     (groups, task) => {
       const dateString = task.due_date!.split('T')[0];
       if (!groups[dateString]) groups[dateString] = [];
       groups[dateString].push(task);
       return groups;
     },
-    {} as Record<string, SharedTask[]>
+    {} as Record<string, Task[]>
   );
 
-  const sectionListData: (string | SharedTask)[] = Object.entries(data).flatMap(
+  const sectionListData: (string | Task)[] = Object.entries(data).flatMap(
     ([dateString, taskList]) => {
       const formattedHeader = getFormattedDayName(dateString);
       return [formattedHeader, ...taskList];

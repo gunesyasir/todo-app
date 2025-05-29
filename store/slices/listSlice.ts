@@ -1,7 +1,7 @@
 import { StateCreator } from 'zustand';
 
 import { BoundStore } from '@/store/useBoundStore';
-import { List, SharedTask } from '@/types';
+import { List } from '@/types';
 
 export interface ListSlice {
   lists: List[];

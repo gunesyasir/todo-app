@@ -5,7 +5,7 @@ import { TaskCreateSchema } from '../schema';
 import { translations } from '@/constants/translations';
 import { createTask, getRecentTasks } from '@/queries/tasks';
 import { useBoundStore } from '@/store/useBoundStore';
-import { SharedTask } from '@/types';
+import { Task } from '@/types';
 
 export const useCreateTask = () => {
   const {
@@ -16,7 +16,7 @@ export const useCreateTask = () => {
   const [isFinished, setIsFinished] = useState(false);
 
   const createTaskFn = async (newTask: TaskCreateSchema) => {
-    const task: SharedTask = {
+    const task: Task = {
       ...newTask,
       id: Date.now(), // Temporary ID until getting id from server side.
       name: newTask.name,

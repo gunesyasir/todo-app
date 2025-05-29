@@ -1,21 +1,21 @@
 import { StateCreator } from 'zustand';
 
 import { BoundStore } from '@/store/useBoundStore';
-import { SharedTask } from '@/types';
+import { Task } from '@/types';
 
 export interface TaskSlice {
-  tasks: SharedTask[];
-  setAllTasks: (tasks: SharedTask[]) => void;
-  addTask: (task: SharedTask) => void;
+  tasks: Task[];
+  setAllTasks: (tasks: Task[]) => void;
+  addTask: (task: Task) => void;
   removeTask: (id: number) => void;
-  updateTask: (id: number, props: Partial<SharedTask>) => void;
+  updateTask: (id: number, props: Partial<Task>) => void;
 }
 
 export const createTaskSlice: StateCreator<BoundStore, [], [], TaskSlice> = (set, get) => ({
   tasks: [],
-  setAllTasks: (tasks: SharedTask[]) => set({ tasks }),
-  addTask: (task: SharedTask) => set({ tasks: [...get().tasks, task] }),
+  setAllTasks: (tasks: Task[]) => set({ tasks }),
+  addTask: (task: Task) => set({ tasks: [...get().tasks, task] }),
   removeTask: (id: number) => set({ tasks: get().tasks.filter((item) => item.id !== id) }),
-  updateTask: (id: number, props: Partial<SharedTask>) =>
+  updateTask: (id: number, props: Partial<Task>) =>
     set({ tasks: get().tasks.map((item) => (item.id === id ? { ...item, ...props } : item)) }),
 });
