@@ -6,6 +6,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { noTaskAnimation } from '@/assets/animations';
 import { Container } from '@/components/Container';
 import { SectionedFlashList } from '@/components/SectionedFlashList';
+import { translations } from '@/constants/translations';
 import { useUpdateTask } from '@/features/tasks/hooks/useUpdateTask';
 import { useUpcomingTasksScreen } from '@/hooks/useUpcomingTasksScreen';
 import { useBoundStore } from '@/store/useBoundStore';
@@ -49,7 +50,7 @@ export default function TaskScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Upcoming Tasks' }} />
+      <Stack.Screen options={{ title: translations.task.upcomingTasks }} />
       <Container>
         {sectionListData.length !== 0 ? (
           <View style={styles.container}>
@@ -63,7 +64,7 @@ export default function TaskScreen() {
         ) : (
           <View style={styles.emptyContainer}>
             <LottieView autoPlay style={styles.lottie} source={noTaskAnimation} />
-            <Text style={styles.emptyText}>No task found ahead, schedule your tasks.</Text>
+            <Text style={styles.emptyText}>{translations.task.emptyMessage}</Text>
           </View>
         )}
       </Container>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { translations } from '@/constants/translations';
 import { createList, getRecentLists } from '@/queries/lists';
 import { useBoundStore } from '@/store/useBoundStore';
 import { List } from '@/types';
@@ -17,12 +18,12 @@ export const useCreateListScreen = () => {
 
   const onSave = async () => {
     if (!text.trim()) {
-      setErrorMessage('Please enter a list name.');
+      setErrorMessage(translations.list.nameEmptyError);
       return;
     }
 
     if (lists.some((list) => list.name === text.trim())) {
-      setErrorMessage('This list already exists, please choose another name.');
+      setErrorMessage(translations.list.alreadyExistError);
       return;
     }
 
@@ -42,7 +43,7 @@ export const useCreateListScreen = () => {
 
       addListStore(recents[0]);
     } catch {
-      showGlobalError({ message: 'Failed to create list.' });
+      showGlobalError({ message: translations.list.creationError });
     } finally {
       removeListStore(tempId);
     }

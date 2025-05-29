@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppInput } from '@/components/AppInput';
 import { Button } from '@/components/Button';
+import { translations } from '@/constants/translations';
 import { useCreateListScreen } from '@/hooks/useCreateListScreen';
 import { Colors } from '@/utils/colors';
 
@@ -24,7 +25,7 @@ export default function CreateListScreen() {
     <>
       <Stack.Screen
         options={{
-          title: 'Add List',
+          title: translations.list.addList,
           headerBackButtonDisplayMode: 'minimal',
         }}
       />
@@ -33,7 +34,7 @@ export default function CreateListScreen() {
         <View>
           <AppInput
             style={[styles.input, !!errorMessage && styles.inputErrorContainer]}
-            placeholder="List Name"
+            placeholder={translations.list.listName}
             hasError={!!errorMessage}
             clearError={() => setErrorMessage('')}
             value={text}
@@ -41,7 +42,7 @@ export default function CreateListScreen() {
           />
           <Text style={styles.inputError}>{errorMessage}</Text>
         </View>
-        <Button title="Save" onPress={onSave} style={styles.button} />
+        <Button title={translations.save} onPress={onSave} style={styles.button} />
       </View>
     </>
   );

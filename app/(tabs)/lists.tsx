@@ -3,6 +3,7 @@ import { Text, Pressable } from 'react-native';
 
 import CollapsibleList from '@/components/CollapsibleList';
 import { Container } from '@/components/Container';
+import { translations } from '@/constants/translations';
 import { useBoundStore } from '@/store/useBoundStore';
 
 export default function Lists() {
@@ -11,10 +12,10 @@ export default function Lists() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Lists' }} />
+      <Stack.Screen options={{ title: translations.list.lists }} />
       <Container>
         <CollapsibleList
-          title="My Lists"
+          title={translations.list.myLists}
           onAddPress={() => router.navigate('/create-list')}
           data={listData}
           renderItem={({ item }) => (

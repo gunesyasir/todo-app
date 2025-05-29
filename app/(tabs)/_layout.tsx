@@ -2,6 +2,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 
 import { Colors } from '@/utils/colors';
+import { translations } from '@/constants/translations';
 
 export default function TabLayout() {
   return (
@@ -9,14 +10,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={({ route }) => ({
-          tabBarLabel: 'Upcoming',
+          tabBarLabel: translations.upcoming,
           tabBarIcon: ({ color }) => <FontAwesome size={24} name="calendar" color={color} />,
         })}
       />
       <Tabs.Screen
         name="lists"
         options={{
-          tabBarLabel: 'Lists',
+          tabBarLabel: translations.list.lists,
           tabBarIcon: ({ color }) => <FontAwesome size={24} name="bars" color={color} />,
         }}
       />

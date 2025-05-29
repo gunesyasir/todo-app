@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { TaskCreateSchema } from '../schema';
 
+import { translations } from '@/constants/translations';
 import { createTask, getRecentTasks } from '@/queries/tasks';
 import { useBoundStore } from '@/store/useBoundStore';
 import { SharedTask } from '@/types';
@@ -37,7 +38,7 @@ export const useCreateTask = () => {
         const item = await getRecentTasks(1);
         addTaskStore(item[0]);
       })
-      .catch(() => showGlobalError({ message: 'Failed to create task.' }))
+      .catch(() => showGlobalError({ message: translations.task.creationError }))
       .finally(() => removeTaskStore(task.id));
   };
 

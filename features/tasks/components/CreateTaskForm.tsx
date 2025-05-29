@@ -5,6 +5,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { AppInput } from '@/components/AppInput';
 import { Divider } from '@/components/Divider';
 import { MemoizedSelectionButton } from '@/components/SelectionButton';
+import { translations } from '@/constants/translations';
 import { MemoizedDatePickerModal } from '@/features/tasks/components/DatePickerModal';
 import { MemoizedSelectionModal } from '@/features/tasks/components/SelectionModal';
 import { Priority, PriorityLabels, Status } from '@/features/tasks/constants';
@@ -168,7 +169,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
     <View style={styles.content}>
       <View style={styles.paddingHorizontal}>
         <AppInput
-          placeholder="Name: e.g. Doctor appointment"
+          placeholder={translations.task.namePlaceholder}
           bottomSheetInput
           hasError={!!taskError.name}
           clearError={() => setTaskError((prev) => ({ ...prev, name: '' }))}
@@ -177,7 +178,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
         />
 
         <AppInput
-          placeholder="Description"
+          placeholder={translations.task.descriptionPlaceholder}
           bottomSheetInput
           hasError={!!taskError.description}
           clearError={() => setTaskError((prev) => ({ ...prev, description: '' }))}
@@ -186,7 +187,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
         />
 
         <AppInput
-          placeholder="Image Path"
+          placeholder={translations.task.imagePlaceholder}
           bottomSheetInput
           hasError={!!taskError.image}
           clearError={() => setTaskError((prev) => ({ ...prev, image: '' }))}
@@ -198,7 +199,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
           iconPath="calendar"
           text={`${localDate}`}
           onPress={handleDueDateButtonPress}
-          color={taskError.due_date ? 'red' : 'green'}
+          color={taskError.due_date ? Colors.error : Colors.success}
         />
 
         <MemoizedSelectionButton
