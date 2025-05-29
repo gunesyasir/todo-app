@@ -15,7 +15,7 @@ export default function TaskScreen() {
   const { sectionListData } = useUpcomingTasksScreen();
   const { toggleIsCompleted } = useUpdateTask();
   const listData = useBoundStore((state) => state.lists);
-  const ITEM_HEIGHT = 60; // TODO: Calculate on layout
+  const ITEM_HEIGHT = 74.6;
 
   const renderHeaderItem = (header: string) => <Text style={styles.header}>{header}</Text>;
 

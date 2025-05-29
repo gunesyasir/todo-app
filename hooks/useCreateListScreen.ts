@@ -5,9 +5,12 @@ import { useBoundStore } from '@/store/useBoundStore';
 import { List } from '@/types';
 
 export const useCreateListScreen = () => {
-  const lists = useBoundStore((state) => state.lists);
-  const addListStore = useBoundStore((state) => state.addList);
-  const removeListStore = useBoundStore((state) => state.removeList);
+  const {
+    lists,
+    addList: addListStore,
+    removeList: removeListStore,
+    showGlobalError,
+  } = useBoundStore((state) => state);
   const [text, setText] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
@@ -39,7 +42,7 @@ export const useCreateListScreen = () => {
 
       addListStore(recents[0]);
     } catch {
-      // TODO: Show snackbar
+      showGlobalError({ message: 'Failed to create list.' });
     } finally {
       removeListStore(tempId);
     }

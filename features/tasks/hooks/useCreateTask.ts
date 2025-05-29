@@ -7,8 +7,11 @@ import { useBoundStore } from '@/store/useBoundStore';
 import { SharedTask } from '@/types';
 
 export const useCreateTask = () => {
-  const addTaskStore = useBoundStore((state) => state.addTask);
-  const removeTaskStore = useBoundStore((state) => state.removeTask);
+  const {
+    addTask: addTaskStore,
+    removeTask: removeTaskStore,
+    showGlobalError,
+  } = useBoundStore((state) => state);
   const [isFinished, setIsFinished] = useState(false);
 
   const createTaskFn = async (newTask: TaskCreateSchema) => {
@@ -32,12 +35,10 @@ export const useCreateTask = () => {
     createTask(newTask)
       .then(async () => {
         const item = await getRecentTasks(1);
-        removeTaskStore(task.id);
         addTaskStore(item[0]);
       })
-      .catch(() => {
-        removeTaskStore(task.id);
-      });
+      .catch(() => showGlobalError({ message: 'Failed to create task.' }))
+      .finally(() => removeTaskStore(task.id));
   };
 
   return {
