@@ -11,7 +11,7 @@ import { useUpdateTask } from '@/features/tasks/hooks/useUpdateTask';
 import { useUpcomingTasksScreen } from '@/hooks/useUpcomingTasksScreen';
 import { useBoundStore } from '@/store/useBoundStore';
 import { Task } from '@/types';
-import { Colors } from '@/utils/colors';
+import { Colors } from '@/constants/colors';
 
 export default function TaskScreen() {
   const { sectionListData } = useUpcomingTasksScreen();

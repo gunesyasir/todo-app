@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Text, Pressable, StyleSheet, View } from 'react-native';
 
 import AppList, { AppListProps } from '@/components/AppList';
-import { Colors } from '@/utils/colors';
+import { Colors } from '@/constants/colors';
 
 type CollapsibleListProps<T> = {
   title: string;

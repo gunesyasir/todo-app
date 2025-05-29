@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { splashAnimation } from '@/assets/animations';
+import { Colors } from '@/constants/colors';
 import { useSplashScreen } from '@/hooks/useSplashScreen';
-import { Colors } from '@/utils/colors';
 
 export default function SplashScreen() {
   const { isLoaded } = useSplashScreen();

@@ -9,7 +9,7 @@ import {
   StyleProp,
 } from 'react-native';
 
-import { Colors } from '@/utils/colors';
+import { Colors } from '@/constants/colors';
 
 interface Props extends TouchableOpacityProps {
   iconPath?: string;

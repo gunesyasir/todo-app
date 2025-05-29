@@ -7,7 +7,7 @@ import {
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { Colors } from '@/utils/colors';
+import { Colors } from '@/constants/colors';
 
 interface BottomSheetProps {
   children?: React.ReactNode;

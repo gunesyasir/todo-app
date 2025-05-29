@@ -12,7 +12,7 @@ import { Priority, PriorityLabels, Status } from '@/features/tasks/constants';
 import { TaskCreateSchema, taskCreateSchema } from '@/features/tasks/schema';
 import { useBoundStore } from '@/store/useBoundStore';
 import { List } from '@/types';
-import { Colors } from '@/utils/colors';
+import { Colors } from '@/constants/colors';
 import { convertFormattedDayNameFromDate } from '@/utils/dateUtils';
 
 type CreateTaskProps = {

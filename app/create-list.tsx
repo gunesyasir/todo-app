@@ -7,7 +7,7 @@ import { AppInput } from '@/components/AppInput';
 import { Button } from '@/components/Button';
 import { translations } from '@/constants/translations';
 import { useCreateListScreen } from '@/hooks/useCreateListScreen';
-import { Colors } from '@/utils/colors';
+import { Colors } from '@/constants/colors';
 
 export default function CreateListScreen() {
   const { text, setText, errorMessage, setErrorMessage, onSave, isCompleted } =
