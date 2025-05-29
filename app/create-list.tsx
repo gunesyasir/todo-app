@@ -1,5 +1,6 @@
 import { router, Stack } from 'expo-router';
-import { Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import { Colors } from '@/utils/colors';
 
 import { AppInput } from '@/components/AppInput';
 import { Button } from '@/components/Button';
@@ -48,7 +49,7 @@ export default function CreateListScreen() {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: Colors.button_background,
     borderRadius: 8,
   },
   container: {
@@ -57,18 +58,18 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   input: {
-    borderColor: 'blue',
+    borderColor: Colors.input_border,
     borderWidth: 1.5,
     borderRadius: 8,
     paddingVertical: 16,
-    color: 'gray',
+    color: Colors.input_text,
   },
   inputError: {
-    color: 'red',
+    color: Colors.error_text,
     fontSize: 14,
     marginTop: 6,
   },
   inputErrorContainer: {
-    borderColor: 'red',
+    borderColor: Colors.error_text,
   },
 });

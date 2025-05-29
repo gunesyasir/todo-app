@@ -12,6 +12,7 @@ import { TaskCreateSchema, taskCreateSchema } from '@/features/tasks/schema';
 import { useBoundStore } from '@/store/useBoundStore';
 import { List } from '@/types';
 import { convertFormattedDayNameFromDate } from '@/utils/dateUtils';
+import { Colors } from '@/utils/colors';
 
 type CreateTaskProps = {
   handleCreateTask: (task: TaskCreateSchema) => void;
@@ -218,7 +219,7 @@ export const CreateTaskForm: React.FC<CreateTaskProps> = ({ handleCreateTask }) 
         />
 
         <TouchableOpacity style={styles.saveButton} onPress={onSavePress}>
-          <FontAwesome size={15} name="arrow-right" color="#8080aa" />
+          <FontAwesome size={15} name="arrow-right" color={Colors.text_light} />
         </TouchableOpacity>
       </View>
 
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingVertical: 10,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Colors.background,
     gap: 8,
   },
   input: {

@@ -5,6 +5,7 @@ import { View, StyleSheet } from 'react-native';
 
 import { splashAnimation } from '@/assets/animations';
 import { useSplashScreen } from '@/hooks/useSplashScreen';
+import { Colors } from '@/utils/colors';
 
 export default function SplashScreen() {
   const { isLoaded } = useSplashScreen();
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#eee',
+    backgroundColor: Colors.splash_background,
   },
   lottie: {
     width: '50%',

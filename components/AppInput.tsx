@@ -1,6 +1,7 @@
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import React from 'react';
 import { TextInput, StyleSheet, TextInputProps, Platform } from 'react-native';
+import { Colors } from '@/utils/colors';
 
 interface AppInputProps extends TextInputProps {
   bottomSheetInput?: boolean;
@@ -34,7 +35,7 @@ export const AppInput: React.FC<AppInputProps> = ({
       {...rest}
       onChangeText={handleChange}
       style={[styles.input, style, hasError && styles.errorInput]}
-      placeholderTextColor={hasError ? 'red' : '#999'}
+      placeholderTextColor={hasError ? Colors.error : Colors.placeholder}
     />
   );
 };
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   errorInput: {
-    color: 'red',
+    color: Colors.error,
   },
 });
+

@@ -4,6 +4,7 @@ import {
   BottomSheetModal,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
+import { Colors } from '@/utils/colors';
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -48,7 +49,7 @@ export const BottomSheetComponent = React.forwardRef<BottomSheetModal, BottomShe
 
 const styles = StyleSheet.create({
   backdrop: {
-    backgroundColor: 'rgba(0, 15, 43, 0.5)',
+    backgroundColor: Colors.backdrop,
     position: 'absolute',
     top: 0,
     bottom: 0,
@@ -56,6 +57,6 @@ const styles = StyleSheet.create({
     left: 0,
   },
   background: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Colors.background,
   },
 });

@@ -10,6 +10,7 @@ import { useUpdateTask } from '@/features/tasks/hooks/useUpdateTask';
 import { useUpcomingTasksScreen } from '@/hooks/useUpcomingTasksScreen';
 import { useBoundStore } from '@/store/useBoundStore';
 import { SharedTask } from '@/types';
+import { Colors } from '@/utils/colors';
 
 export default function TaskScreen() {
   const { sectionListData } = useUpcomingTasksScreen();
@@ -103,8 +104,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   filledButton: {
-    backgroundColor: '#007aff',
-    borderColor: '#007aff',
+    backgroundColor: Colors.primary,
+    borderColor: Colors.primary,
   },
   header: {
     fontSize: 14,

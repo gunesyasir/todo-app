@@ -1,5 +1,6 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import React from 'react';
+import { Colors } from '@/utils/colors';
 import {
   TouchableOpacity,
   StyleSheet,
@@ -20,14 +21,14 @@ interface Props extends TouchableOpacityProps {
 const SelectionButton: React.FC<Props> = ({
   iconPath,
   text,
-  color = '#999',
+  color = Colors.secondary_text,
   onPress,
   style,
   ...rest
 }) => {
   return (
     <TouchableOpacity style={[styles.button, style]} onPress={onPress} {...rest}>
-      {iconPath && <FontAwesome size={12} name={iconPath as any} color={color ?? '#808080'} />}
+      {iconPath && <FontAwesome size={12} name={iconPath as any} color={color ?? Colors.text_light} />}
       <Text style={[styles.text, { color }]}>{text}</Text>
     </TouchableOpacity>
   );

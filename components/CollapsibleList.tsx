@@ -1,5 +1,6 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import React, { useState } from 'react';
+import { Colors } from '@/utils/colors';
 import { Text, Pressable, StyleSheet, View } from 'react-native';
 
 import AppList, { AppListProps } from '@/components/AppList';
@@ -26,14 +27,14 @@ export default function CollapsibleList<T>({
 
         <View style={styles.iconContainer}>
           <Pressable style={styles.iconButton} onPress={onAddPress}>
-            <FontAwesome size={18} name="plus" color="#808080" />
+            <FontAwesome size={18} name="plus" color={Colors.text_light} />
           </Pressable>
 
           <Pressable style={styles.iconButton} onPress={() => setIsVisible(!isVisible)}>
             <FontAwesome
               size={18}
               name={isVisible ? 'chevron-up' : 'chevron-down'}
-              color="#808080"
+              color={Colors.text_light}
             />
           </Pressable>
         </View>
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
+    color: Colors.title,
   },
   iconButton: {
     padding: 2,
